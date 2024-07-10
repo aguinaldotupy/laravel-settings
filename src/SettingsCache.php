@@ -4,6 +4,7 @@ namespace Spatie\LaravelSettings;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Spatie\LaravelSettings\Concerns\HasResolverCacheKey;
 use Spatie\LaravelSettings\Exceptions\CouldNotUnserializeSettings;
 use Spatie\LaravelSettings\Exceptions\SettingsCacheDisabled;
 
@@ -88,6 +89,6 @@ class SettingsCache
     {
         $prefix = $this->prefix ? "{$this->prefix}." : '';
 
-        return "{$prefix}settings.{$settingsClass}";
+        return app(HasResolverCacheKey::class)->getCacheKey($settingsClass, $prefix);
     }
 }

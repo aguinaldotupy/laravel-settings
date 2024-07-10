@@ -5,6 +5,7 @@ namespace Spatie\LaravelSettings;
 use Illuminate\Database\Events\SchemaLoaded;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelSettings\Concerns\HasResolverCacheKey;
 use Spatie\LaravelSettings\Console\CacheDiscoveredSettingsCommand;
 use Spatie\LaravelSettings\Console\ClearCachedSettingsCommand;
 use Spatie\LaravelSettings\Console\ClearDiscoveredSettingsCacheCommand;
@@ -56,6 +57,10 @@ class LaravelSettingsServiceProvider extends ServiceProvider
         $this->app->bind(SettingsCacheFactory::class, fn () => new SettingsCacheFactory(
             config('settings'),
         ));
+
+        if (! is_null($this->app['config']['settings.cache_key_resolver'])) {
+            $this->app->bind(HasResolverCacheKey::class, $this->app['config']['settings.cache_key_resolver']);
+        }
 
         $this->app->scoped(SettingsMapper::class);
 

@@ -67,6 +67,8 @@ return [
         'ttl' => null,
     ],
 
+    'cache_key_resolver' => Spatie\LaravelSettings\SettingsResolverCacheKey::class,
+
     /*
      * These global casts will be automatically used whenever a property within
      * your settings class isn't a default PHP type.
