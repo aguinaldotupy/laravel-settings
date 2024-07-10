@@ -158,6 +158,8 @@ return [
         'store' => null,
         'prefix' => null,
     ],
+    
+    'cache_key_resolver' => Spatie\LaravelSettings\SettingsResolverCacheKey::class,
 
     /*
      * These global casts will be automatically used whenever a property within
